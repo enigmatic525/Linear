@@ -1,0 +1,221 @@
+:root {
+    --bg-color: #1a1a1a;
+    --text-color: #f2f2f2;
+    --text-sub: #b3b3b3;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-container {
+    flex-grow: 1;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(40px);
+}
+
+.slide.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.slide.exit-up {
+    opacity: 0;
+    transform: translateY(-30px);
+}
+
+h1 {
+    font-size: 2.2rem;
+    font-weight: 200;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+    color: var(--text-color);
+}
+
+h2 {
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--text-sub);
+    opacity: 0;
+}
+
+/* Animations for specific slides */
+.delayed-fade {
+    animation: fadeIn 1.2s ease 0.5s forwards;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+/* Equipment Selection */
+.slide-2 h2 {
+    opacity: 1; /* Not delayed here */
+    margin-bottom: 2rem;
+}
+
+.options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    width: 100%;
+    max-width: 340px;
+    margin-top: 1rem;
+    opacity: 0;
+}
+
+.slide-2.active .options-container {
+    animation: fadeIn 1.2s ease 0.8s forwards;
+}
+
+.slide-2.active h2.sub-select {
+    animation: fadeIn 1.2s ease 0.8s forwards;
+}
+
+.option-btn {
+    background-color: transparent;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: var(--text-color);
+    padding: 1.2rem 1.5rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, border-color 0.3s;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.option-btn:hover {
+    background-color: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.3);
+}
+
+.option-btn:active {
+    transform: scale(0.97);
+}
+
+.option-btn span.title {
+    font-weight: 400;
+    margin-bottom: 0.4rem;
+    font-size: 1.1rem;
+}
+
+.option-btn span.desc {
+    font-size: 0.9rem;
+    color: var(--text-sub);
+    line-height: 1.4;
+}
+
+/* Swipe Indicator */
+.swipe-indicator {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--text-sub);
+    opacity: 0;
+    transition: opacity 0.8s;
+    animation: fadeIn 1.2s ease 1.5s forwards;
+}
+
+.swipe-indicator.hidden {
+    opacity: 0 !important;
+    pointer-events: none;
+}
+
+.swipe-text {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+    opacity: 0.6;
+}
+
+.swipe-icon {
+    font-size: 1.2rem;
+    font-weight: 200;
+    animation: floatUp 2s infinite ease-in-out;
+    opacity: 0.8;
+}
+
+@keyframes floatUp {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+/* Slide 3 specific */
+.slide-3 .centered-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 160px;
+    position: relative;
+    width: 100%;
+}
+
+.slide-3 .centered-header {
+    transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(0);
+    margin: 0;
+    position: absolute;
+}
+
+.slide-3.step-2 .centered-header {
+    transform: translateY(-30px);
+}
+
+.slide-3 .action-text {
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(0);
+    transition: opacity 1s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    font-size: 1.1rem;
+    color: var(--text-sub);
+    width: 100%;
+    text-align: center;
+}
+
+.slide-3.step-2 .action-text {
+    opacity: 1;
+    transform: translateY(20px);
+}

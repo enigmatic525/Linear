@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
             html: `
                 <div class="slide slide-1 active">
                     <h1>Welcome to Linear</h1>
-                    <h2 class="delayed-fade">An introduction to weightlifting, made simple</h2>
+                    <h2 class="delayed-fade">An introduction to weightlifting, made simple.</h2>
                 </div>
             `
         },
@@ -20,17 +20,15 @@ document.addEventListener('DOMContentLoaded', () => {
             id: 'slide-2',
             html: `
                 <div class="slide slide-2">
-                    <h1>First, lets get to know your equipment.</h1>
-                    <h2>What do you have access to?</h2>
-                    <h2 class="sub-select" style="font-size: 1rem; margin-top: 2rem; margin-bottom: 0.5rem; opacity: 0;">Select one:</h2>
-                    <div class="options-container">
+                    <h1>First, what equipment do you have access to?</h1>
+                    <div class="options-container" style="margin-top: 2rem;">
                         <button class="option-btn" data-value="simple">
                             <span class="title">Simple setup</span>
-                            <span class="desc">Bench + Dumbells + Pull up bar</span>
+                            <span class="desc">Bench, dumbbells, and a pull-up bar.</span>
                         </button>
                         <button class="option-btn" data-value="full">
                             <span class="title">Full gym</span>
-                            <span class="desc">Free weights, machines, and cables</span>
+                            <span class="desc">Free weights, machines, and cables.</span>
                         </button>
                     </div>
                 </div>
@@ -51,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
             html: `
                 <div class="slide slide-3">
                     <div class="centered-content">
-                        <h1 class="centered-header">Perfect, lets get started.</h1>
+                        <h1 class="centered-header">Perfect. Time to begin.</h1>
                         <div class="action-text" id="action-text-container"></div>
                     </div>
                 </div>
@@ -61,11 +59,46 @@ document.addEventListener('DOMContentLoaded', () => {
                     element.classList.add('step-2');
                     const textContainer = element.querySelector('#action-text-container');
                     if (selectedEquipment === 'simple') {
-                        textContainer.innerText = "Let's set up your bench";
+                        textContainer.innerText = "Prepare for your bench press.";
                     } else {
-                        textContainer.innerText = "Let's set up your first exercise";
+                        textContainer.innerText = "Prepare for your first exercise.";
                     }
+                    setTimeout(() => {
+                        nextSlide();
+                    }, 2500); // Auto-advance to slide 4
                 }, 1500); // 1.0s transition + 0.5s wait
+            }
+        },
+        {
+            id: 'slide-4',
+            html: `
+                <div class="slide slide-4">
+                    <h2 style="opacity: 1; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem;">Exercise 1</h2>
+                    <h1 id="exercise-title" style="margin-bottom: 0.5rem;">Bench Press</h1>
+                    <h2 style="opacity: 1; margin-bottom: 3rem; color: var(--text-sub);">3 sets of 8-10 reps</h2>
+                    <div class="options-container" style="opacity: 1; margin-top: 0; align-items: center;">
+                        <button class="option-btn start-workout-btn" style="text-align: center; width: 100%; justify-content: center; padding: 1.5rem;">
+                            <span class="title" style="margin: 0;">Begin Workout</span>
+                        </button>
+                    </div>
+                </div>
+            `,
+            onEnter: (element) => {
+                const title = element.querySelector('#exercise-title');
+                if (selectedEquipment === 'simple') {
+                    title.innerText = "Dumbbell Bench Press";
+                } else {
+                    title.innerText = "Barbell Bench Press";
+                }
+            },
+            setup: (element) => {
+                const btn = element.querySelector('.start-workout-btn');
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    btn.innerHTML = '<span class="title" style="margin: 0; color: #888;">Workout Started</span>';
+                    btn.style.borderColor = "rgba(255,255,255,0.05)";
+                    btn.style.cursor = "default";
+                });
             }
         }
     ];

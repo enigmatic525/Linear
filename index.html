@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -11,16 +12,30 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
 </head>
+
 <body>
+    <div id="border-container" class="border-container">
+        <div class="border-line border-top"></div>
+        <div class="border-line border-right"></div>
+        <div class="border-line border-bottom"></div>
+        <div class="border-line border-left"></div>
+    </div>
+
     <div id="app" class="app-container">
         <!-- Slides will be injected here via JS -->
     </div>
-    
+
     <div id="swipe-indicator" class="swipe-indicator">
         <div class="swipe-text">Swipe up</div>
-        <div class="swipe-icon">^</div>
+        <div class="swipe-icon">
+            <svg width="24" height="15" viewBox="0 0 24 15">
+                <path d="M2 13L12 3L22 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" fill="none" />
+            </svg>
+        </div>
     </div>
-    
+
     <script src="app.js"></script>
 </body>
+
 </html>

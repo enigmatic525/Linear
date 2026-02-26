@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const appContainer = document.getElementById('app');
+    const borderContainer = document.getElementById('border-container');
     const swipeIndicator = document.getElementById('swipe-indicator');
     let currentSlideIndex = 0;
     let selectedEquipment = null;
@@ -83,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function goToSlide(index) {
         if (isTransitioning || index < 0 || index >= slides.length) return;
         isTransitioning = true;
-        
+
         const slideElements = document.querySelectorAll('.slide');
         const currentSlide = slideElements[currentSlideIndex];
         const nextSlideEl = slideElements[index];
@@ -92,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
         currentSlide.classList.add('exit-up');
 
         nextSlideEl.classList.add('active');
-        
+
         if (slides[index].onEnter) {
             slides[index].onEnter(nextSlideEl);
         }
@@ -101,6 +102,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (index > 0) {
             swipeIndicator.classList.add('hidden');
+            if (borderContainer) borderContainer.classList.add('hidden');
+        } else {
+            swipeIndicator.classList.remove('hidden');
+            if (borderContainer) borderContainer.classList.remove('hidden');
         }
 
         setTimeout(() => {
@@ -128,18 +133,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { passive: true });
 
         document.addEventListener('wheel', e => {
-             if (e.deltaY > 50 && currentSlideIndex === 0) {
-                 nextSlide();
-             }
+            if (e.deltaY > 50 && currentSlideIndex === 0) {
+                nextSlide();
+            }
         }, { passive: true });
 
         document.addEventListener('keydown', e => {
             if ((e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === ' ') && currentSlideIndex === 0) {
-                 e.preventDefault();
-                 nextSlide();
+                e.preventDefault();
+                nextSlide();
             }
         });
-        
+
         // Allowed click on entire document to proceed on slide 1 (for ease of testing)
         document.addEventListener('click', (e) => {
             if (currentSlideIndex === 0) {
